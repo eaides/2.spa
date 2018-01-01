@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class HeroesService {
@@ -10,7 +11,8 @@ export class HeroesService {
           la cual puede convocar a grandes distancias.`,
           img: 'assets/img/aquaman.png',
           aparicion: '1941-11-01',
-          casa: 'DC'
+          casa: 'DC',
+          id: 1,
       },
       {
           nombre: 'Batman',
@@ -19,7 +21,8 @@ export class HeroesService {
           dado al personaje.`,
           img: 'assets/img/batman.png',
           aparicion: '1939-05-01',
-          casa: 'DC'
+          casa: 'DC',
+          id: 2,
       },
       {
           nombre: 'Daredevil',
@@ -28,7 +31,8 @@ export class HeroesService {
           "sexto sentido" que le sirve como un radar similar al de los murciélagos.`,
           img: 'assets/img/daredevil.png',
           aparicion: '1964-01-01',
-          casa: 'Marvel'
+          casa: 'Marvel',
+          id: 3,
       },
       {
           nombre: 'Hulk',
@@ -37,7 +41,8 @@ export class HeroesService {
           pero lo compensa con su inteligencia).`,
           img: 'assets/img/hulk.png',
           aparicion: '1962-05-01',
-          casa: 'Marvel'
+          casa: 'Marvel',
+          id: 4,
       },
       {
           nombre: 'Linterna Verde',
@@ -47,7 +52,8 @@ export class HeroesService {
           el cual encontró un fabricante de lámparas llamado Chang)`,
           img: 'assets/img/linterna-verde.png',
           aparicion: '1940-06-01',
-          casa: 'DC'
+          casa: 'DC',
+          id: 5,
       },
       {
           nombre: 'Spider-Man',
@@ -57,7 +63,8 @@ export class HeroesService {
           antes de que suceda. En ocasiones este puede llevar a Spider-Man al origen del peligro.`,
           img: 'assets/img/spiderman.png',
           aparicion: '1962-08-01',
-          casa: 'Marvel'
+          casa: 'Marvel',
+          id: 6,
       },
       {
           nombre: 'Wolverine',
@@ -67,11 +74,12 @@ export class HeroesService {
           como Hulk, sí sobrepasa la de cualquier humano.`,
           img: 'assets/img/wolverine.png',
           aparicion: '1974-11-01',
-          casa: 'Marvel'
+          casa: 'Marvel',
+          id: 7,
       }
   ];
 
-  constructor() {
+  constructor( private _router: Router ) {
 
   }
 
@@ -79,8 +87,40 @@ export class HeroesService {
     return this.heroes;
   }
 
-  getHeroe(idx: string): Heroe {
-      return this.heroes[idx];
+  getHeroe(id: number): Heroe {
+      let heroeById: any;
+      heroeById = false;
+      let heroe: Heroe;
+      let id_h: number;
+      console.log(id);
+      console.log(this.heroes);
+      const heroes = this.heroes;
+      for ( heroe of heroes) {
+          id_h = heroe.id;
+          if (id == id_h) {
+            // console.log(heroe);
+            heroeById = heroe;
+          }
+      }
+      console.log(heroeById);
+      if (!heroeById) {
+          this._router.navigate(['404']);
+      }
+      return heroeById;
+  }
+
+  buscarHeroes( searchFor: string ): Heroe[] {
+        let heroesArr: Heroe[] = [];
+        let heroe: Heroe;
+        let nombre: string;
+        searchFor = searchFor.toLowerCase();
+        for ( heroe of this.heroes) {
+            nombre = heroe.nombre.toLowerCase();
+            if ( nombre.indexOf( searchFor) >= 0) {
+                heroesArr.push(heroe);
+            }
+        }
+        return heroesArr;
   }
 }
 
@@ -90,4 +130,5 @@ export interface Heroe {
     img: string;
     aparicion: string;
     casa: string;
+    id: number;
 }

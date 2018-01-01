@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HeroesComponent implements OnInit {
 
-  heroes: Heroe[] = [];
+  protected heroes: Heroe[] = [];
 
   constructor(
       private _heroesService: HeroesService,
@@ -23,7 +23,7 @@ export class HeroesComponent implements OnInit {
     // console.log(this.heroes);
   }
 
-  verHeroe(idx: number) {
-    this._router.navigate(['/heroe', idx]);
+  verHeroe(id: number) {
+    this._router.navigate(['/heroe', id]);
   }
 }
