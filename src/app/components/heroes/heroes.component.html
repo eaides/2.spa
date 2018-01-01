@@ -1,11 +1,9 @@
 <h1>Héroes <small>Marvel y DC</small> </h1>
 <hr>
 <div class="card-columns">
-
-
-
   <div class="card animated fadeIn fast" *ngFor="let heroe of heroes; let i = index">
-    <img class="card-img-top" [src]="heroe.img" [alt]="heroe.nombre">
+    <img class="card-img-top" [src]="heroe.img" [alt]="heroe.nombre"
+    class="img-fluid">
     <div class="card-body">
       <h5 class="card-title">{{ heroe.nombre }}</h5>
       <p class="card-text">{{ heroe.bio }}</p>
